@@ -99,7 +99,6 @@ public class Gun : MonoBehaviour
 
         var point = hit.point;
         point -= (dir * 0.1f);
-        // var bulletHole = Instantiate(bulletHolePrefab, hit.collider.transform);
         var bulletHole = Instantiate(bulletHolePrefab);
         if (rigidBody)
             bulletHole.transform.SetParent(hit.collider.transform);

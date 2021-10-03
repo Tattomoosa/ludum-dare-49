@@ -15,7 +15,9 @@ public class CharacterInput : MonoBehaviour
     public float gravity = 9.8f;
     public float dragOnNotMoving = 3.0f;
     public float jumpPower = 5.0f;
-    
+
+    public Vector2 minMouseSensitivity = new Vector2(300, 200);
+    public Vector2 maxMouseSensitivity = new Vector2(1500, 1200);
     public Vector2 mouseSensitivity = new Vector2(1000, 800);
     
     [Header("Set in Prefab")]
@@ -31,6 +33,10 @@ public class CharacterInput : MonoBehaviour
     void Start()
     {
         _controller = GetComponent<CharacterController>();
+        Debug.Log("X");
+        Debug.Log(Mathf.InverseLerp(minMouseSensitivity.x, maxMouseSensitivity.x, mouseSensitivity.x));
+        Debug.Log("Y");
+        Debug.Log(Mathf.InverseLerp(minMouseSensitivity.y, maxMouseSensitivity.y, mouseSensitivity.y));
     }
 
     public void SetVelocity(Vector3 newVelocity)
@@ -172,5 +178,14 @@ public class CharacterInput : MonoBehaviour
     private bool GroundIsTooSteep()
     {
         return (_controller.collisionFlags & CollisionFlags.Below) != 0; 
+    }
+
+    public void SetMouseSensitivityX(float value)
+    {
+        mouseSensitivity.x = Mathf.Lerp(minMouseSensitivity.x, maxMouseSensitivity.x, value);
+    }
+    public void SetMouseSensitivityY(float value)
+    {
+        mouseSensitivity.y = Mathf.Lerp(minMouseSensitivity.y, maxMouseSensitivity.y, value);
     }
 }

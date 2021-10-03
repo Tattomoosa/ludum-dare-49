@@ -42,7 +42,7 @@ public class Zombie : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         _controller = GetComponent<CharacterController>();
         _audioSource = GetComponent<AudioSource>();
-        _audioSource.pitch = Random.Range(0.8f, 1.2f);
+        _audioSource.pitch = Random.Range(0.6f, 1.4f);
         if (!_player)
             _player = FindObjectOfType<Player>();
     }

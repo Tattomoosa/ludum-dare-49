@@ -6,10 +6,11 @@ public class SignLooker : MonoBehaviour
 {
     [SerializeField] private DialogueUI dialogueUI;
     public LayerMask signLayer;
+    [SerializeField] private AudioSource _audioSource;
     
     private void Update()
     {
-        if (!Input.GetMouseButtonDown(1))
+        if (!Input.GetMouseButtonDown(1) || dialogueUI.IsOpen)
             return;
         
         var dir = transform.forward;
@@ -20,12 +21,10 @@ public class SignLooker : MonoBehaviour
             Debug.Log("Raycast hit nothing.");
             return;
         }
-        else
-        {
-            var sign = hit.collider.attachedRigidbody.GetComponent<Sign>();
-            if (!sign)
-                return;
-            dialogueUI.ShowDialogue(sign.Textboxes);
-        }
+        var sign = hit.collider.attachedRigidbody.GetComponent<Sign>();
+        if (!sign)
+            return;
+        _audioSource.Play();
+        dialogueUI.ShowDialogue(sign.Textboxes);
     }
 }
