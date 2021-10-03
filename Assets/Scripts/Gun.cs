@@ -28,7 +28,8 @@ public class Gun : MonoBehaviour
     
     public void Shoot()
     {
-        if (gunAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Shoot")
+        var clipInfo = gunAnimator.GetCurrentAnimatorClipInfo(0);
+        if (clipInfo.Length > 0 && clipInfo[0].clip.name == "Shoot")
             return;
         
         if (infiniteBullets || (!isReloading && currentBullets > 0))
@@ -72,9 +73,13 @@ public class Gun : MonoBehaviour
         
         if (hit.collider.isTrigger) return;
 
-        var health = hit.collider.GetComponent<Health>();
-        if (health)
-            health.TakeDamage(damage);
+        var rigidBody = hit.collider.attachedRigidbody;
+        if (rigidBody)
+        {
+            var health = rigidBody.GetComponent<Health>();
+            if (health)
+                health.TakeDamage(damage);
+        }
 
         var point = hit.point;
         point -= (dir * 0.1f);

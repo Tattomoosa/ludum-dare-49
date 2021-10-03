@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     
     public FadeInOut fader;
 
+    public CheckpointGetUI checkpointGetUI;
+
     private CharacterController _controller;
     private CharacterInput _input;
 
@@ -63,8 +65,15 @@ public class Player : MonoBehaviour
 
     public void SetCheckpoint(Checkpoint checkpoint)
     {
+        if (lastCheckpoint == checkpoint)
+            return;
         lastCheckpoint = checkpoint;
-        Debug.Log("new checkpoint");
+        checkpointGetUI.Show();
+    }
+
+    public void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Debug.Log(hit.normal);
     }
 }
 
