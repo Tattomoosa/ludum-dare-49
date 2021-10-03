@@ -27,7 +27,6 @@ public class CharacterInput : MonoBehaviour
     private float _currentMaxSpeed = 0.0f;
     private Vector3 _velocity;
     private CharacterController _controller;
-    // private Vector3 _groundNormal = Vector3.zero;
     
     void Start()
     {
@@ -50,14 +49,17 @@ public class CharacterInput : MonoBehaviour
         {
             if (pauseMenu.IsPaused)
                 pauseMenu.Unpause();
-            else pauseMenu.Pause();
+            else if (!GameTime.IsPaused)
+            {
+                pauseMenu.Pause();
+            }
         }
 
         if (pauseMenu.IsPaused)
             return;
         
         Cursor.lockState = CursorLockMode.Locked;
-        if (allowInput)
+        if (!GameTime.IsPaused && allowInput)
         {
             UpdateLookDirection();
             UpdateMovementDirection();
@@ -67,7 +69,8 @@ public class CharacterInput : MonoBehaviour
         ApplyGravity();
 
         // apply movement
-        _controller.Move(_velocity);
+        if (!GameTime.IsPaused)
+            _controller.Move(_velocity);
     }
 
     private void UpdateJump()
@@ -156,6 +159,7 @@ public class CharacterInput : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
             gun.Shoot();
     }
+    
 
     private bool CanJump()
     {

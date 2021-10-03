@@ -50,6 +50,7 @@ public class FallingPlatform : MonoBehaviour
 
     private IEnumerator WaitThenStartToFall()
     {
+        _hasFallen = true;
         // play crack sound here? there's no delay now. crack might still be good
         yield return new WaitForSeconds(startFallDelay);
         StartToFall();

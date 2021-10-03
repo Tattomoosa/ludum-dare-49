@@ -4,16 +4,16 @@ using UnityEngine;
 
 public static class GameTime
 {
-    private static bool _isPaused = false;
+    public static bool IsPaused { get; private set; } = false;
 
     public static void Pause()
     {
-        _isPaused = true;
+        IsPaused = true;
     }
     public static void Unpause()
     {
-        _isPaused = false;
+        IsPaused = false;
     }
     
-    public static float DeltaTime => _isPaused ? 0 : Time.deltaTime;
+    public static float DeltaTime => IsPaused ? 0 : Time.deltaTime;
 }

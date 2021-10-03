@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class Zombie : MonoBehaviour
 {
     public UnityEvent onAwareOfPlayer;
-    public float waitBeforeExplode = 0.5f;
+    public float waitBeforeExplode = 0.3f;
     [SerializeField]
     private float triggerExplodeDistance = 2.0f;
     [SerializeField]
@@ -17,11 +17,13 @@ public class Zombie : MonoBehaviour
     [SerializeField]
     private float speed = 2.0f;
 
+    [SerializeField] private AudioClip aboutToBlowSFX;
+    [SerializeField] private AudioClip explodeSFX;
+    [SerializeField] private GameObject explodeEffect;
+
     private float deathFallSpeed = 1.5f;
     
     private bool _isDead = false;
-
-    [SerializeField] private Collider headCollider;
     
     private AudioSource _audioSource;
     private Animator _animator;
@@ -33,6 +35,7 @@ public class Zombie : MonoBehaviour
     private bool _isExploding = false;
     private bool _isActive = false;
     private static readonly int ExplodeAnimation = Animator.StringToHash("Explode");
+    private static readonly int BackToIdleAnimation = Animator.StringToHash("BackToIdle");
 
     private void Start()
     {
@@ -53,8 +56,17 @@ public class Zombie : MonoBehaviour
 
     private void Update()
     {
-        if (!_isActive || _isDead)
+        if (_isDead)
             return;
+        
+        var velocity = Vector3.zero;
+        velocity.y -= gravity * GameTime.DeltaTime;
+
+        if (!_isActive)
+        {
+            _controller.Move(velocity);
+            return;
+        }
 
         var distanceToPlayer = GetDistanceToPlayer();
         
@@ -64,9 +76,7 @@ public class Zombie : MonoBehaviour
         if (distanceToPlayer < triggerExplodeDistance)
             Explode();
         
-        var velocity = Vector3.zero;
 
-        velocity.y -= gravity * GameTime.DeltaTime;
 
         var lookPosition = _player.transform.position;
         lookPosition.y = transform.position.y;
@@ -94,23 +104,39 @@ public class Zombie : MonoBehaviour
 
     private IEnumerator ExplodeCoroutine()
     {
+        _audioSource.Stop();
+        _audioSource.PlayOneShot(aboutToBlowSFX);
         yield return new WaitForSeconds(waitBeforeExplode);
         // spawn explosion particles
+
+        if (_isDead)
+            yield break;
+        
         var distanceToPlayer = GetDistanceToPlayer();
         if (distanceToPlayer < actualExplodeHitDistance)
+        {
             _player.Die();
-        Die();
+            Die();
+            _audioSource.PlayOneShot(explodeSFX);
+            explodeEffect.SetActive(true);
+        }
+        else
+        {
+            // reset?
+            _isExploding = false;
+            _animator.SetTrigger(BackToIdleAnimation);
+        }
     }
 
     public void Die()
     {
+        _audioSource.Stop();
         if (!_isDead)
             StartCoroutine(DieCoroutine());
     }
 
     private IEnumerator DieCoroutine()
     {
-        _audioSource.Stop();
         _isDead = true;
         _animator.SetTrigger(DieAnimation);
         yield return new WaitForSeconds(2.0f);

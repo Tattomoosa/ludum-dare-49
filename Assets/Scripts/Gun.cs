@@ -77,7 +77,11 @@ public class Gun : MonoBehaviour
         if (!Physics.Raycast(ray, out var hit, 200.0f, bulletInteractionLayers)) return;
 
         if (hit.collider.isTrigger)
-            Debug.LogWarning($"BULLET HIT TRIGGER? GameObject: {hit.collider.gameObject} Layer: {hit.collider.gameObject.layer}");
+        {
+            Debug.LogWarning(
+                $"BULLET HIT TRIGGER? GameObject: {hit.collider.gameObject} Layer: {hit.collider.gameObject.layer}");
+            return;
+        }
 
         var rigidBody = hit.collider.attachedRigidbody;
         if (rigidBody)
@@ -87,10 +91,7 @@ public class Gun : MonoBehaviour
             {
                 var dmg = damage;
                 if (hit.collider.GetComponent<CriticalHitArea>())
-                {
                     dmg = criticalHitDamage;
-                    Debug.Log("CRITICAL HIT");
-                }
 
                 health.TakeDamage(dmg);
             }
@@ -98,7 +99,10 @@ public class Gun : MonoBehaviour
 
         var point = hit.point;
         point -= (dir * 0.1f);
-        var bulletHole = Instantiate(bulletHolePrefab, hit.collider.transform);
+        // var bulletHole = Instantiate(bulletHolePrefab, hit.collider.transform);
+        var bulletHole = Instantiate(bulletHolePrefab);
+        if (rigidBody)
+            bulletHole.transform.SetParent(hit.collider.transform);
         bulletHole.transform.position = point;
         bulletHole.transform.LookAt(point + hit.normal);
     }
