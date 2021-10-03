@@ -1,13 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Gun : MonoBehaviour
 {
     public int damage = 1;
+    public int criticalHitDamage = 10;
     public bool infiniteBullets = false;
     public int currentBullets = 6;
     public int maxBullets = 6;
+    public LayerMask bulletInteractionLayers;
 
     public bool drawDebugLines;
     
@@ -69,16 +73,27 @@ public class Gun : MonoBehaviour
         if (drawDebugLines)
             Debug.DrawRay(ray.origin, ray.direction * 1000.0f, Color.cyan, 0.5f);
         
-        if (!Physics.Raycast(ray, out var hit)) return;
-        
-        if (hit.collider.isTrigger) return;
+        // if (!Physics.Raycast(ray, out var hit)) return;
+        if (!Physics.Raycast(ray, out var hit, 200.0f, bulletInteractionLayers)) return;
+
+        if (hit.collider.isTrigger)
+            Debug.LogWarning($"BULLET HIT TRIGGER? GameObject: {hit.collider.gameObject} Layer: {hit.collider.gameObject.layer}");
 
         var rigidBody = hit.collider.attachedRigidbody;
         if (rigidBody)
         {
             var health = rigidBody.GetComponent<Health>();
             if (health)
-                health.TakeDamage(damage);
+            {
+                var dmg = damage;
+                if (hit.collider.GetComponent<CriticalHitArea>())
+                {
+                    dmg = criticalHitDamage;
+                    Debug.Log("CRITICAL HIT");
+                }
+
+                health.TakeDamage(dmg);
+            }
         }
 
         var point = hit.point;

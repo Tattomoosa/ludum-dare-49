@@ -7,7 +7,9 @@ public class CharacterInput : MonoBehaviour
     public float airAcceleration = 0.6f;
     public float groundAcceleration = 2.0f;
     
-    public float maxMoveSpeed = 10.0f;
+    public float maxMoveSpeedForward = 10.0f;
+    public float maxMoveSpeedStrafe = 6.0f;
+    public float maxMoveSpeedBack = 4.0f;
     public float maxMoveSpeedRunModifier = 1.5f;
     
     public float gravity = 9.8f;
@@ -16,16 +18,17 @@ public class CharacterInput : MonoBehaviour
     
     public Vector2 mouseSensitivity = new Vector2(1000, 800);
     
-    
     [Header("Set in Prefab")]
     public Transform playerCameraParent;
     public PauseMenu pauseMenu;
     public Gun gun;
+    
 
-    private Vector3 velocity;
-    
-    
+    private float _currentMaxSpeed = 0.0f;
+    private Vector3 _velocity;
     private CharacterController _controller;
+    // private Vector3 _groundNormal = Vector3.zero;
+    
     void Start()
     {
         _controller = GetComponent<CharacterController>();
@@ -33,12 +36,12 @@ public class CharacterInput : MonoBehaviour
 
     public void SetVelocity(Vector3 newVelocity)
     {
-        velocity = newVelocity;
+        _velocity = newVelocity;
     }
 
     bool IsRunning()
     {
-        return Input.GetKey(KeyCode.LeftControl);
+        return Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
     }
     
     void Update()
@@ -64,27 +67,36 @@ public class CharacterInput : MonoBehaviour
         ApplyGravity();
 
         // apply movement
-        _controller.Move(velocity);
+        _controller.Move(_velocity);
     }
 
     private void UpdateJump()
     {
-        if (_controller.isGrounded && Input.GetKey(KeyCode.Space))
-            velocity.y = jumpPower;
+        if (CanJump() && Input.GetKey(KeyCode.Space))
+            _velocity.y = jumpPower;
     }
 
     private void UpdateMovementDirection()
     {
         // get input
         var dir = Vector3.zero;
-        if (Input.GetKey(KeyCode.W))
-            dir += Vector3.forward;
-        if (Input.GetKey(KeyCode.A))
+        _currentMaxSpeed = maxMoveSpeedStrafe;
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             dir += Vector3.left;
-        if (Input.GetKey(KeyCode.S))
-            dir += Vector3.back;
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             dir += Vector3.right;
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        {
+            dir += Vector3.forward;
+            _currentMaxSpeed = maxMoveSpeedForward;
+            if (IsRunning())
+                _currentMaxSpeed *= maxMoveSpeedRunModifier;
+        }
+        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        {
+            dir += Vector3.back;
+            _currentMaxSpeed = maxMoveSpeedBack;
+        }
 
         if (dir != Vector3.zero)
         {
@@ -93,11 +105,11 @@ public class CharacterInput : MonoBehaviour
                 : airAcceleration;
             dir = transform.rotation * dir;
             // dir = playerCameraParent.rotation * dir;
-            velocity += dir * (speed * GameTime.DeltaTime);
+            _velocity += dir * (speed * GameTime.DeltaTime);
         }
         
         // get horizontal direction
-        var velocityXZ = new Vector3(velocity.x, 0, velocity.z);
+        var velocityXZ = new Vector3(_velocity.x, 0, _velocity.z);
         
         // apply extra drag if no input
         if (dir == Vector3.zero && velocityXZ.magnitude > 0)
@@ -109,26 +121,23 @@ public class CharacterInput : MonoBehaviour
         }
         
         // clamp xy movement to maxspeed
-        var max = maxMoveSpeed * GameTime.DeltaTime;
-        if (IsRunning())
-            max *= maxMoveSpeedRunModifier;
-        if (velocityXZ.magnitude > max)
-            velocityXZ = velocityXZ.normalized * max;
+        _currentMaxSpeed *= GameTime.DeltaTime;
+        if (velocityXZ.magnitude > _currentMaxSpeed)
+            velocityXZ = velocityXZ.normalized * _currentMaxSpeed;
         
         // apply back to velocity
-        velocity.x = velocityXZ.x;
-        velocity.z = velocityXZ.z;
+        _velocity.x = velocityXZ.x;
+        _velocity.z = velocityXZ.z;
     }
 
     private void ApplyGravity()
     {
-        // apply gravity
-        if (velocity.y <= -gravity) return;
+        if (_velocity.y <= -gravity) return;
         
-        if (velocity.y > 0)
-            velocity.y -= (gravity * GameTime.DeltaTime) / 2;
+        if (_velocity.y > 0)
+            _velocity.y -= (gravity * GameTime.DeltaTime) / 2;
         else
-            velocity.y -= gravity * GameTime.DeltaTime;
+            _velocity.y -= gravity * GameTime.DeltaTime;
     }
     
     private void UpdateLookDirection()
@@ -146,5 +155,18 @@ public class CharacterInput : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
             gun.Shoot();
+    }
+
+    private bool CanJump()
+    {
+        var collisionFlags = _controller.collisionFlags;
+        return _controller.isGrounded
+               && (collisionFlags & CollisionFlags.Below) != 0
+               && (collisionFlags & CollisionFlags.Sides) == 0;
+    }
+
+    private bool GroundIsTooSteep()
+    {
+        return (_controller.collisionFlags & CollisionFlags.Below) != 0; 
     }
 }

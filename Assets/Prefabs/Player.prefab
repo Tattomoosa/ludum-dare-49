@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6763362307547024214}
   - component: {fileID: 7222694188732695594}
   - component: {fileID: 6882176575527016060}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: QuitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 658426792506491129}
   - component: {fileID: 91246862342278416}
   - component: {fileID: 2335467146133378754}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4137701784338845049}
   - component: {fileID: 184507596}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CameraParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 304136111943234389}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GunBulletOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +301,7 @@ GameObject:
   - component: {fileID: 3042333216498192849}
   - component: {fileID: 4925359719626594628}
   - component: {fileID: 5302336851183196633}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,9 +337,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  criticalHitDamage: 10
   infiniteBullets: 1
   currentBullets: 6
   maxBullets: 6
+  bulletInteractionLayers:
+    serializedVersion: 2
+    m_Bits: 55
   drawDebugLines: 1
   muzzleFlash: {fileID: 8122999678084112079}
   bulletHolePrefab: {fileID: 8791474231067033195, guid: 2d09598e7d26ba74eae8c856ef844ece, type: 3}
@@ -454,7 +458,7 @@ GameObject:
   - component: {fileID: 9101654995072308536}
   - component: {fileID: 5388338198386112308}
   - component: {fileID: 8512457673351205070}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ResumeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -606,7 +610,7 @@ GameObject:
   - component: {fileID: 7593319136456062454}
   - component: {fileID: 6914551991743524459}
   - component: {fileID: 8412948640257235045}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CheckpointGetUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -668,7 +672,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 4410d9acd84461a41b3019cb008eb1f5, type: 2}
   m_audioClip: {fileID: 8300000, guid: 268063346c2183e4889a1b29a10d2f4b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 0.03
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -761,7 +765,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1252713019295317937}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GunCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -800,7 +804,7 @@ GameObject:
   - component: {fileID: 8038622245124216310}
   - component: {fileID: 6647319768263813671}
   - component: {fileID: 5475706463239912376}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PauseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -888,7 +892,7 @@ GameObject:
   - component: {fileID: 9125444692020936839}
   - component: {fileID: 3990835707990089634}
   - component: {fileID: 5005552601523674691}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -967,7 +971,7 @@ GameObject:
   - component: {fileID: 6167916083168811854}
   - component: {fileID: 6167916083168811840}
   - component: {fileID: 6167916083168811855}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -986,6 +990,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2228304659271516530}
+  - {fileID: 7213861986881170172}
   m_Father: {fileID: 4137701784338845049}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -998,14 +1003,14 @@ Camera:
   m_GameObject: {fileID: 6167916083168811853}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.1445257, g: 0.08877714, b: 0.3301887, a: 1}
-  m_projectionMatrixMode: 1
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
+  m_projectionMatrixMode: 2
   m_GateFitMode: 2
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
+  m_FocalLength: 12.85
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -1014,7 +1019,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 86.0819
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -1052,7 +1057,7 @@ GameObject:
   - component: {fileID: 6167916084476462562}
   - component: {fileID: 6167916084476462561}
   - component: {fileID: 2695529324294395013}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1147,7 +1152,7 @@ GameObject:
   - component: {fileID: 6167916084576023482}
   - component: {fileID: 6167916084576023484}
   - component: {fileID: 6167916084576023485}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1219,7 +1224,9 @@ MonoBehaviour:
   allowInput: 0
   airAcceleration: 0.6
   groundAcceleration: 2
-  maxMoveSpeed: 10
+  maxMoveSpeedForward: 10
+  maxMoveSpeedStrafe: 7
+  maxMoveSpeedBack: 3
   maxMoveSpeedRunModifier: 2
   gravity: 0.45
   dragOnNotMoving: 0.8
@@ -1252,7 +1259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1329487697995326331}
   - component: {fileID: 4564818573149257366}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1346,7 +1353,7 @@ GameObject:
   - component: {fileID: 1005626288533303640}
   - component: {fileID: 2090249535232025991}
   - component: {fileID: 553003022241710157}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Resume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1426,7 +1433,7 @@ GameObject:
   - component: {fileID: 8939512380071504419}
   - component: {fileID: 1472047560727333057}
   - component: {fileID: 942537647347203084}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1528,7 +1535,7 @@ GameObject:
   - component: {fileID: 8193513390616717461}
   - component: {fileID: 8693658093021443401}
   - component: {fileID: 6447797317986250693}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CheckpointGetText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1607,7 +1614,7 @@ GameObject:
   - component: {fileID: 8546612986220419918}
   - component: {fileID: 6312569347112535344}
   - component: {fileID: 1855546974809518265}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1631,7 +1638,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 32, y: 32}
+  m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6312569347112535344
 CanvasRenderer:
@@ -1680,7 +1687,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2228304659271516530}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CameraBulletOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1710,7 +1717,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3370012960756942424}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MuzzleFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1745,7 +1752,7 @@ GameObject:
   - component: {fileID: 2136934352847239298}
   - component: {fileID: 1992133095387209844}
   - component: {fileID: 5005976654102721944}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FadeInOut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1822,6 +1829,99 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeSpeed: 1
+--- !u!1 &8606028204565232222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7213861986881170172}
+  - component: {fileID: 2583141028708908987}
+  m_Layer: 6
+  m_Name: Spot Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7213861986881170172
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8606028204565232222}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6167916083168811854}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!108 &2583141028708908987
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8606028204565232222}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 0
+  m_Shape: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 49.29783
+  m_SpotAngle: 82.96715
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1001 &748203798031300855
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1889,6 +1989,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: plane
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e48b0480f68f6c342a1d21ef0ea3acdb, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e48b0480f68f6c342a1d21ef0ea3acdb, type: 3}
 --- !u!4 &1002224771460341532 stripped
@@ -1903,6 +2007,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3042333216498192849}
     m_Modifications:
+    - target: {fileID: -8741307515064685377, guid: 7e4355a6f00090444b511f419506fdf8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7e4355a6f00090444b511f419506fdf8, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1959,20 +2067,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -12.193
       objectReference: {fileID: 0}
+    - target: {fileID: -1168442268769085831, guid: 7e4355a6f00090444b511f419506fdf8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -242165637326713887, guid: 7e4355a6f00090444b511f419506fdf8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7e4355a6f00090444b511f419506fdf8, type: 3}
       propertyPath: m_Name
       value: gunarm
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7e4355a6f00090444b511f419506fdf8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1214824004972775095, guid: 7e4355a6f00090444b511f419506fdf8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3821491438331676647, guid: 7e4355a6f00090444b511f419506fdf8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6413430945410268847, guid: 7e4355a6f00090444b511f419506fdf8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036213049465896255, guid: 7e4355a6f00090444b511f419506fdf8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e4355a6f00090444b511f419506fdf8, type: 3}
---- !u!1 &3417821103885099950 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7e4355a6f00090444b511f419506fdf8, type: 3}
-  m_PrefabInstance: {fileID: 2571524594039693055}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2604587478599334164 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7e4355a6f00090444b511f419506fdf8, type: 3}
+  m_PrefabInstance: {fileID: 2571524594039693055}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3417821103885099950 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7e4355a6f00090444b511f419506fdf8, type: 3}
   m_PrefabInstance: {fileID: 2571524594039693055}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &2354728230411572572 stripped

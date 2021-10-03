@@ -70,10 +70,5 @@ public class Player : MonoBehaviour
         lastCheckpoint = checkpoint;
         checkpointGetUI.Show();
     }
-
-    public void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        Debug.Log(hit.normal);
-    }
 }
 
