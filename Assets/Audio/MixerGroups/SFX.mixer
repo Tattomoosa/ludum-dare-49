@@ -1,5 +1,47 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!244 &-1135308163834535342
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 2dd434664a0f2b442bc6a3670d68a5d2
+  m_EffectName: SFX Reverb
+  m_MixLevel: 4148faa10d9b7ef478bd9f711e4003fa
+  m_Parameters:
+  - m_ParameterName: Dry Level
+    m_GUID: 3855167f5958cdf4daf663bcd1b61e1c
+  - m_ParameterName: Room
+    m_GUID: 43ab73c8559c36540a1bd714559e69cb
+  - m_ParameterName: Room HF
+    m_GUID: 3f3a62ef667a0e64dadd781f1ab28385
+  - m_ParameterName: Decay Time
+    m_GUID: a833dff8a29fb3949b251ce18723897f
+  - m_ParameterName: Decay HF Ratio
+    m_GUID: 76873650a789f614284d15e4703ae19b
+  - m_ParameterName: Reflections
+    m_GUID: 30493b9a271b5bb4eb4ebfca9aaf3f47
+  - m_ParameterName: Reflect Delay
+    m_GUID: 058c9c23dfed46240af0145c41c7a2a6
+  - m_ParameterName: Reverb
+    m_GUID: 2d8d74f8b2a021847ad700b064ec4d04
+  - m_ParameterName: Reverb Delay
+    m_GUID: 213b07e6ac1e13f4daafe98ce4404ace
+  - m_ParameterName: Diffusion
+    m_GUID: ebd84ff8f676ff2499cc4ce84cd2b04a
+  - m_ParameterName: Density
+    m_GUID: 9e8436a0d39342c4999444013384be56
+  - m_ParameterName: HF Reference
+    m_GUID: 26cf8c9edc8ee5445aef6b4b4a6a755c
+  - m_ParameterName: Room LF
+    m_GUID: 9c9e1f9e550b9d540afb37b11ec486f2
+  - m_ParameterName: LF Reference
+    m_GUID: 9c53fa5d5067def4ba68755ab3c1d9e4
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -15,7 +57,9 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: e7eb4841bf76cf44db2abd3d4cdd33ca
+    name: Volume
   m_AudioMixerGroupViews:
   - guids:
     - 52c1fe3ba7fc74544985a2fe1f42b085
@@ -36,6 +80,7 @@ AudioMixerGroupController:
   m_Pitch: 963c76a2add4c6e499f44ad3517e2c93
   m_Send: 00000000000000000000000000000000
   m_Effects:
+  - {fileID: -1135308163834535342}
   - {fileID: 24400004}
   m_UserColorIndex: 0
   m_Mute: 0

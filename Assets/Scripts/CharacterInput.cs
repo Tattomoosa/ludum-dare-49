@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -49,7 +50,7 @@ public class CharacterInput : MonoBehaviour
         return Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
     }
     
-    void Update()
+    void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
