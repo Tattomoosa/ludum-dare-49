@@ -20,10 +20,12 @@ public class DialogueUI : MonoBehaviour
         var testDialogue = new List<string>
         {
             "",
-            "Power's out again. Maybe there's something going on at the plant.",
-            "I should really walk over there -- with the WASD/arrow keys -- and take a look... with the mouse.",
-            "Also I can read signs by looking at them and clicking the right mouse button.",
-            "I know it looks like they just say 'NOTICE' but sometimes looks are deceiving, you know?"
+            
+            "Power's out again. Maybe there's something going on at the nuclear plant...",
+            
+            "I should really walk over there -- with the <color=cyan>WASD/arrow keys</color> -- and take a look... with <color=cyan>the mouse.</color>",
+            "...I think there's some other things I can do that I forgot about. Maybe <color=cyan>reading these signs</color> with the <color=cyan>right mouse button/R</color> will jog my memory.",
+            "<color=yellow><b>NOTE: Mouse sensitivity can be adjusted with Tab/Escape once you leave this dialogue.</b></color>",
         };
         ShowDialogue(testDialogue);
     }

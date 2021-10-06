@@ -104,5 +104,8 @@ public class Gun : MonoBehaviour
             bulletHole.transform.SetParent(hit.collider.transform);
         bulletHole.transform.position = point;
         bulletHole.transform.LookAt(point + hit.normal);
+        // this is dependent on the bullet from blender having weird rotation to start with... lol
+        // bulletHole.transform.Rotate(Vector3.right, Random.Range(0.0f, 360.0f));
+        bulletHole.transform.Rotate(Vector3.forward, Random.Range(0.0f, 360.0f), Space.Self);
     }
 }

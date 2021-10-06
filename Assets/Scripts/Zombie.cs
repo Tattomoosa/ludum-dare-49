@@ -54,7 +54,7 @@ public class Zombie : MonoBehaviour
             onAwareOfPlayer.Invoke();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (_isDead)
             return;
@@ -62,7 +62,7 @@ public class Zombie : MonoBehaviour
         var velocity = Vector3.zero;
         velocity.y -= gravity * GameTime.DeltaTime;
 
-        if (!_isActive)
+        if (!_isActive || _player.IsDead)
         {
             _controller.Move(velocity);
             return;
@@ -76,8 +76,6 @@ public class Zombie : MonoBehaviour
         if (distanceToPlayer < triggerExplodeDistance)
             Explode();
         
-
-
         var lookPosition = _player.transform.position;
         lookPosition.y = transform.position.y;
         transform.LookAt(lookPosition);
@@ -130,6 +128,9 @@ public class Zombie : MonoBehaviour
 
     public void Die()
     {
+        _controller.detectCollisions = false;
+        foreach (var childCollider in GetComponentsInChildren<Collider>())
+            childCollider.enabled = false;
         _audioSource.Stop();
         if (!_isDead)
             StartCoroutine(DieCoroutine());

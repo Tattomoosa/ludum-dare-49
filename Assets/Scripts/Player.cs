@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     private CharacterController _controller;
     private CharacterInput _input;
 
+    public bool IsDead { get; private set; } = false;
+
     private void Start()
     {
         _controller = GetComponent<CharacterController>();
@@ -38,6 +40,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator RespawnCoroutine()
     {
+        IsDead = true;
         _input.enabled = false;
         _input.allowInput = false;
         yield return fader.FadeIn();
@@ -49,6 +52,7 @@ public class Player : MonoBehaviour
         _input.SetVelocity(Vector3.zero);
         yield return fader.FadeOut();
         _input.allowInput = true;
+        IsDead = false;
     }
 
     private IEnumerator FadeInCoroutine()

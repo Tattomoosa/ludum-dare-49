@@ -52,6 +52,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -146,9 +147,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallingSound: {fileID: 8300000, guid: d9df3dde8dc4cef4585bb67e927c9ca3, type: 3}
-  startFallDelay: 0.2
+  startFallDelay: 0.4
   loseDragSpeed: 50
-  returnDelay: 2
+  returnDelay: 5
 --- !u!54 &3539145845164796608
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -174,10 +175,10 @@ AudioSource:
   m_GameObject: {fileID: 8615709402744381588}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 4410d9acd84461a41b3019cb008eb1f5, type: 2}
   m_audioClip: {fileID: 8300000, guid: d9df3dde8dc4cef4585bb67e927c9ca3, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.101
+  m_Volume: 0.325
   m_Pitch: 0.8
   Loop: 0
   Mute: 0
@@ -303,8 +304,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6, y: 1, z: 6}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 5.846655, y: 0.4022827, z: 5.7792244}
+  m_Center: {x: 0.013672948, y: -0.29885864, z: 0.00296855}
 --- !u!1001 &449044430565049769
 PrefabInstance:
   m_ObjectHideFlags: 0
