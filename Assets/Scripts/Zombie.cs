@@ -142,11 +142,14 @@ public class Zombie : MonoBehaviour
         _animator.SetTrigger(DieAnimation);
         yield return new WaitForSeconds(2.0f);
         var fallPosition = transform.position - (Vector3.up * 4.0f);
+        var explodeLight = explodeEffect.GetComponent<Light>();
         while (transform.position.y > fallPosition.y)
         {
+            explodeLight.intensity -= 5.0f * GameTime.DeltaTime;
             transform.position -= Vector3.up * (deathFallSpeed * GameTime.DeltaTime);
             yield return 0;
         }
+        yield return new WaitForSeconds(10.0f);
         Destroy(gameObject);
     }
 }
