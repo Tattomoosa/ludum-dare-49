@@ -89,10 +89,14 @@ public class Gun : MonoBehaviour
             var health = rigidBody.GetComponent<Health>();
             if (health)
             {
+                if (hit.collider.GetComponent<InvincibleArea>())
+                {
+                    health.FailedAttemptToDamage();
+                    return;
+                }
                 var dmg = damage;
                 if (hit.collider.GetComponent<CriticalHitArea>())
                     dmg = criticalHitDamage;
-
                 health.TakeDamage(dmg);
             }
         }

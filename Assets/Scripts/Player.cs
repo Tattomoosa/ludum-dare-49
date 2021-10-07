@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         SetPosition(lastCheckpoint.transform.position);
         transform.rotation = lastCheckpoint.transform.rotation;
-        _controller.Move(Vector3.up);
+        _controller.Move(Vector3.down * 100.0f);
         _input.enabled = true;
         _input.SetVelocity(Vector3.zero);
         yield return fader.FadeOut();

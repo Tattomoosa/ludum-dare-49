@@ -7,6 +7,7 @@ public class Health : MonoBehaviour
     public int currentHealth;
     public UnityEvent onTakeDamage;
     public UnityEvent onOutOfHealth;
+    public UnityEvent onFailedToDamage;
 
     private void Start()
     {
@@ -20,5 +21,10 @@ public class Health : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth <= 0)
             onOutOfHealth.Invoke();
+    }
+
+    public void FailedAttemptToDamage()
+    {
+        onFailedToDamage.Invoke();
     }
 }

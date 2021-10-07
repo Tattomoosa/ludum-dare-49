@@ -19,6 +19,7 @@ public class CharacterInput : MonoBehaviour
     public float dragOnNotMoving = 3.0f;
     public float airDrag = 0.2f;
     public float jumpPower = 5.0f;
+    public float slideSpeed = 1.0f;
 
     public Vector2 minMouseSensitivity = new Vector2(30, 30);
     public Vector2 maxMouseSensitivity = new Vector2(1000, 1000);
@@ -83,11 +84,10 @@ public class CharacterInput : MonoBehaviour
 
     private void UpdateJump()
     {
-        if (CanJump() && Input.GetKey(KeyCode.Space))
-        {
-            _velocity.y = jumpPower;
-            onJump.Invoke();
-        }
+        if (!CanJump() || !Input.GetKey(KeyCode.Space)) return;
+        
+        _velocity.y = jumpPower;
+        onJump.Invoke();
     }
 
     private void UpdateMovementDirection()
@@ -215,7 +215,6 @@ public class CharacterInput : MonoBehaviour
         float pitch = 0.0f;
         Vector3 axis = Vector3.right;
         playerCameraParent.transform.localRotation.ToAngleAxis(out pitch, out axis);
-        Debug.Log($"{pitch}, {axis}");
         if (axis.x < 0)
         {
             if (pitch > 80.0f && mouseY > 0.0f)
@@ -251,6 +250,23 @@ public class CharacterInput : MonoBehaviour
                && (collisionFlags & CollisionFlags.Sides) == 0;
                */
     }
+
+        /*
+         // attempt to make it so you can't jump up steep terrain.
+         // works but feels terrible
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.normal.y > 0.6)
+            return;
+        
+        var tangent = Vector3.Cross(hit.normal, Vector3.up);
+        var down = Vector3.Cross(hit.normal, tangent);
+        _controller.enabled = false;
+        // _controller.Move(down.normalized * (slideSpeed * Time.deltaTime));
+        transform.position += (down.normalized * (slideSpeed * Time.deltaTime));
+        _controller.enabled = true;
+    }
+        */
 
     public void SetMouseSensitivityX(float value)
     {
