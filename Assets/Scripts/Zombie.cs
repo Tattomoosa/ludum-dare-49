@@ -36,6 +36,7 @@ public class Zombie : MonoBehaviour
     private bool _isActive = false;
     private static readonly int ExplodeAnimation = Animator.StringToHash("Explode");
     private static readonly int BackToIdleAnimation = Animator.StringToHash("BackToIdle");
+    private static readonly int HurtAnimation = Animator.StringToHash("Hurt");
 
     private void Start()
     {
@@ -134,6 +135,11 @@ public class Zombie : MonoBehaviour
         _audioSource.Stop();
         if (!_isDead)
             StartCoroutine(DieCoroutine());
+    }
+
+    private void OnHurt()
+    {
+        _animator.SetTrigger(HurtAnimation);
     }
 
     private IEnumerator DieCoroutine()
