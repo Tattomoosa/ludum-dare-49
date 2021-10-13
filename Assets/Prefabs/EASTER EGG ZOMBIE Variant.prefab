@@ -122,7 +122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5958713046199782249, guid: 7f271df675a8bcf4d9b47c971e0ac7a3, type: 3}
       propertyPath: m_Name
-      value: EASTER EGG ZOMBIE
+      value: EASTER EGG ZOMBIE Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5958713046199782249, guid: 7f271df675a8bcf4d9b47c971e0ac7a3, type: 3}
       propertyPath: m_Layer
@@ -233,7 +233,19 @@ PrefabInstance:
       value: 9999
       objectReference: {fileID: 0}
     - target: {fileID: 8632491188692967836, guid: 7f271df675a8bcf4d9b47c971e0ac7a3, type: 3}
+      propertyPath: onTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632491188692967836, guid: 7f271df675a8bcf4d9b47c971e0ac7a3, type: 3}
+      propertyPath: onTakeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632491188692967836, guid: 7f271df675a8bcf4d9b47c971e0ac7a3, type: 3}
       propertyPath: onOutOfHealth.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632491188692967836, guid: 7f271df675a8bcf4d9b47c971e0ac7a3, type: 3}
+      propertyPath: onOutOfHealth.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

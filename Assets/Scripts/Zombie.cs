@@ -33,6 +33,7 @@ public class Zombie : MonoBehaviour
     private static readonly int MoveSpeedAnimation = Animator.StringToHash("MoveSpeed");
 
     private bool _isExploding = false;
+    private bool _isHurting = false;
     private bool _isActive = false;
     private static readonly int ExplodeAnimation = Animator.StringToHash("Explode");
     private static readonly int BackToIdleAnimation = Animator.StringToHash("BackToIdle");
@@ -63,7 +64,7 @@ public class Zombie : MonoBehaviour
         var velocity = Vector3.zero;
         velocity.y -= gravity * GameTime.DeltaTime;
 
-        if (!_isActive || _player.IsDead)
+        if (!_isActive || _isHurting || _player.IsDead)
         {
             _controller.Move(velocity);
             return;
@@ -137,9 +138,17 @@ public class Zombie : MonoBehaviour
             StartCoroutine(DieCoroutine());
     }
 
-    private void OnHurt()
+    public void OnHurt()
     {
+        StartCoroutine(HurtCoroutine());
+    }
+
+    private IEnumerator HurtCoroutine()
+    {
+        _isHurting = true;
         _animator.SetTrigger(HurtAnimation);
+        yield return new WaitForSeconds(0.5f);
+        _isHurting = false;
     }
 
     private IEnumerator DieCoroutine()

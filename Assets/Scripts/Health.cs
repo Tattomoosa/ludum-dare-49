@@ -17,10 +17,11 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        onTakeDamage.Invoke();
         currentHealth -= damage;
         if (currentHealth <= 0)
             onOutOfHealth.Invoke();
+        else
+            onTakeDamage.Invoke();
     }
 
     public void FailedAttemptToDamage()

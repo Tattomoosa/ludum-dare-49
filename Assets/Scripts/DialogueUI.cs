@@ -24,12 +24,10 @@ public class DialogueUI : MonoBehaviour
         var testDialogue = new List<string>
         {
             "",
-            
             "Power's out again. Maybe there's something going on at the nuclear plant...",
-            
             "I should really walk over there -- with the <color=cyan>WASD/arrow keys</color> -- and take a look... with <color=cyan>the mouse.</color>",
             $"If the <color=yellow>whole world is spinning</color> I can always use <color=cyan>{pauseButton}</color> to change the <color=cyan>mouse sensitivity</color> in the <color=cyan>Pause</color> menu... if I finally quit talking to myself, anyway.",
-            "...I think there's some other things I can do that I forgot about. Maybe <color=cyan>reading these signs</color> with the <color=cyan>right mouse button/R</color> will jog my memory.",
+            "...I think there's some other things I can do that I forgot about. Maybe <color=cyan>reading these signs</color> with the <color=cyan>right mouse button/E</color> will jog my memory...",
         };
         ShowDialogue(testDialogue);
     }

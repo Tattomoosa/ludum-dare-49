@@ -58,6 +58,9 @@ MonoBehaviour:
   currentHealth: 1
   onTakeDamage:
     m_PersistentCalls:
+      m_Calls: []
+  onOutOfHealth:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4234174048304851429}
         m_TargetAssemblyTypeName: SwitchLever, Assembly-CSharp
@@ -71,7 +74,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onOutOfHealth:
+  onFailedToDamage:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &8350611005336769672

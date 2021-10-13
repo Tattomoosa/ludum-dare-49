@@ -40,6 +40,6 @@ public class SignLooker : MonoBehaviour
 
     private bool GetInput()
     {
-        return Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.R);
+        return Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.E);
     }
 }
